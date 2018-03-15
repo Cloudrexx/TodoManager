@@ -186,6 +186,12 @@ class ComponentController extends \Cx\Core\Core\Model\Entity\SystemComponentCont
             $this->getNamespace() . '\Model\Entity\Todo',
             $todoListener
         );
+        $this->cx->getEvents()->addEventListener(
+            $this->getName() . '/Done',
+            new \Cx\Modules\TodoManager\Model\Event\TodoMailEventListener(
+                $this->cx
+            )
+        );
     }
 
     /**
