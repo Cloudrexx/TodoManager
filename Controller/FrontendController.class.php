@@ -55,12 +55,65 @@ class FrontendController extends \Cx\Core\Core\Model\Entity\SystemComponentFront
      * @param \Cx\Core\Html\Sigma $template Template containing content of resolved page
      */
     public function parsePage(\Cx\Core\Html\Sigma $template, $cmd) {
-        // this class inherits from Controller, therefore you can get access to
-        // Cx like this:
-        $this->cx;
+        $em = $this->cx->getDb()->getEntityManager();
+        $todoRepo = $em->getRepository(
+            $this->getNamespace() . '\Model\Entity\Todo'
+        );
+        switch ($cmd) {
+            case 'Detail':
+                $params = $this->cx->getRequest()->getUrl()->getParamArray();
+                if (!isset($params['id'])) {
+                    \Cx\Core\Csrf\Controller\Csrf::redirect(
+                        \Cx\Core\Routing\Url::fromModuleAndCmd(
+                            $this->getName()
+                        )
+                    );
+                }
+                $todo = $todoRepo->find(
+                    $params['id']
+                );
+                $this->parseTodo($template, $todo);
+                break;
+            default:
+                // TODO: We should add paging for performance
+                $todos = $todoRepo->findAll();
+                if (!count($todos)) {
+                    $template->hideBlock('todos');
+                    $template->touchBlock('no_todos');
+                    return;
+                }
+                foreach ($todos as $todo) {
+                    $this->parseTodo($template, $todo);
+                    $template->setVariable(
+                        'DETAIL_URL',
+                        \Cx\Core\Routing\Url::fromModuleAndCmd(
+                            $this->getName(),
+                            'Detail',
+                            '',
+                            array('id' => $todo->getId())
+                        )
+                    );
+                    $template->parse('todo');
+                }
+                break;
+        }
+    }
 
-        // Controller routes all calls to undeclared methods to your
-        // ComponentController. So you can do things like
-        $this->getName();
+    /**
+     * Parses a Todo entity into a template
+     * @param \Cx\Core\View\Model\Entity\Sigma $template Template to parse into
+     * @param \Cx\Modules\TodoManager\Model\Entity\Todo $todo Todo to parse
+     */
+    protected function parseTodo($template, $todo) {
+        $template->setVariable(
+            $this->getSystemComponentController()->getSubstitutionArrayForTodo($todo)
+        );
+        if ($todo->getDone()) {
+            $template->touchBlock('todo_done');
+            $template->hideBlock('todo_open');
+        } else {
+            $template->touchBlock('todo_open');
+            $template->hideBlock('todo_done');
+        }
     }
 }

@@ -288,4 +288,35 @@ class ComponentController extends \Cx\Core\Core\Model\Entity\SystemComponentCont
      * @param string $endcode The processed data to be sent to the client as response
      */
     public function postFinalize(&$endcode) {}
+
+    public function getSubstitutionArrayForTodo($todo) {
+        $substitution = array(
+            'ID' => $todo->getId(),
+            'NAME' => contrexx_raw2xhtml($todo->getName()),
+            'DESCRIPTION' => contrexx_raw2xhtml($todo->getDescription()),
+            'REMINDER_DATE' => $todo->getReminderDate()->format(
+                ASCMS_DATE_FORMAT
+            ),
+        );
+        if ($todo->getCategory()) {
+            $substitution += array(
+                'CATEGORY_ID' => $todo->getCategory()->getId(),
+                'CATEGORY_NAME' => contrexx_raw2xhtml(
+                    $todo->getCategory()->getName()
+                ),
+                'CATEGORY_DESCRIPTION' => contrexx_raw2xhtml(
+                    $todo->getCategory()->getDescription()
+                ),
+            );
+        }
+        if ($todo->getUser()) {
+            $substitution += array(
+                'USER_ID' => $todo->getUser()->getId(),
+                'USER_NAME' => contrexx_raw2xhtml(
+                    \FWUser::getParsedUserTitle($todo->getUser())
+                ),
+            );
+        }
+        return $substitution;
+    }
 }
