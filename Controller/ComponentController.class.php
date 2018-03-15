@@ -146,7 +146,9 @@ class ComponentController extends \Cx\Core\Core\Model\Entity\SystemComponentCont
      * Do not do anything else here than list statements like
      * $this->cx->getEvents()->addEvent($eventName);
      */
-    public function registerEvents() {}
+    public function registerEvents() {
+        $this->cx->getEvents()->addEvent($this->getName() . '/Done');
+    }
 
     /**
      * Register your event listeners here
@@ -158,7 +160,21 @@ class ComponentController extends \Cx\Core\Core\Model\Entity\SystemComponentCont
      * list statements like
      * $this->cx->getEvents()->addEventListener($eventName, $listener);
      */
-    public function registerEventListeners() {}
+    public function registerEventListeners() {
+        $todoListener = new \Cx\Modules\TodoManager\Model\Event\TodoEventListener(
+            $this->cx
+        );
+        $this->cx->getEvents()->addModelListener(
+            'preUpdate',
+            $this->getNamespace() . '\Model\Entity\Todo',
+            $todoListener
+        );
+        $this->cx->getEvents()->addModelListener(
+            'postUpdate',
+            $this->getNamespace() . '\Model\Entity\Todo',
+            $todoListener
+        );
+    }
 
     /**
      * Do something before resolving is done
