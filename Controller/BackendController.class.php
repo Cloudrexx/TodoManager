@@ -87,27 +87,31 @@ class BackendController extends \Cx\Core\Core\Model\Entity\SystemComponentBacken
      * @return array with options
      */
     protected function getViewGeneratorOptions($entityClassName, $dataSetIdentifier = '') {
-        global $_ARRAYLANG;
+        $options = parent::getViewGeneratorOptions($entityClassName, $dataSetIdentifier);
 
-        $classNameParts = explode('\\', $entityClassName);
-        $classIdentifier = end($classNameParts);
-
-        $langVarName = 'TXT_' . strtoupper($this->getType() . '_' . $this->getName() . '_ACT_' . $classIdentifier);
-        $header = '';
-        if (isset($_ARRAYLANG[$langVarName])) {
-            $header = $_ARRAYLANG[$langVarName];
+        switch ($entityClassName) {
+            case 'Cx\Modules\TodoManager\Model\Entity\Todo':
+                $options['fields'] = array(
+                    'description' => array(
+                        'showOverview' => false,
+                    ),
+                    'category' => array(
+                        'allowFiltering' => true,
+                    ),
+                );
+                $options['functions']['filtering'] = true;
+                $options['functions']['searching'] = true;
+                break;
+            case 'Cx\Modules\TodoManager\Model\Entity\Category':
+                $options['fields'] = array(
+                    'todos' => array(
+                        'showOverview' => false,
+                        'showDetail' => false,
+                    ),
+                );
+                break;
         }
-        return array(
-            'header' => $header,
-            'functions' => array(
-                'add'       => true,
-                'edit'      => true,
-                'delete'    => true,
-                'sorting'   => true,
-                'paging'    => true,
-                'filtering' => false,
-            ),
-        );
+        return $options;
     }
 
     /**
@@ -115,7 +119,7 @@ class BackendController extends \Cx\Core\Core\Model\Entity\SystemComponentBacken
      * @return boolean True if overview should be shown, false otherwise
      */
     protected function showOverviewPage() {
-        return true;
+        return false;
     }
 }
 
