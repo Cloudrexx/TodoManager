@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Todo
  */
-class Todo extends \Cx\Model\Base\EntityBase {
+class Todo extends \Cx\Model\Base\EntityBase implements \Gedmo\Translatable\Translatable {
     /**
      * @var integer
      */
@@ -43,6 +43,10 @@ class Todo extends \Cx\Model\Base\EntityBase {
      */
     protected $user;
 
+    /**
+     * @var string
+     */
+    protected $locale;
 
     /**
      * Get id
@@ -190,5 +194,10 @@ class Todo extends \Cx\Model\Base\EntityBase {
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
