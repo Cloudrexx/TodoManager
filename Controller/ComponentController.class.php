@@ -139,6 +139,11 @@ class ComponentController extends \Cx\Core\Core\Model\Entity\SystemComponentCont
         );
     }
 
+    /**
+     * Returns an list of placeholders and values for Todo templates
+     * @param \Cx\Modules\TodoManager\Model\Entity\Todo $todo Todo to parse
+     * @return array Key value pairs with placeholders and replacements
+     */
     public function getSubstitutionArrayForTodo($todo) {
         $substitution = array(
             'ID' => $todo->getId(),
