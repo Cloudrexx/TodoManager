@@ -1,7 +1,6 @@
 Cx\Modules\TodoManager\Model\Entity\Category:
   type: entity
   table: module_todomanager_category
-  repositoryClass: Cx\Modules\TodoManager\Model\Repository\CategoryRepository
   id:
     id:
       type: integer
