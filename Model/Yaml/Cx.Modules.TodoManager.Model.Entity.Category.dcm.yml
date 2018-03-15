@@ -1,0 +1,22 @@
+Cx\Modules\TodoManager\Model\Entity\Category:
+  type: entity
+  table: module_todomanager_category
+  repositoryClass: Cx\Modules\TodoManager\Model\Repository\CategoryRepository
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 50
+    description:
+      type: text
+  oneToMany:
+    todos:
+      targetEntity: Cx\Modules\TodoManager\Model\Entity\Todo
+      mappedBy: category
+      joinColumn:
+        name: id
+        referencedColumnName: category_id
