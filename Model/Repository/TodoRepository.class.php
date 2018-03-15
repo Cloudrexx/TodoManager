@@ -12,4 +12,43 @@ use Doctrine\ORM\EntityRepository;
  */
 class TodoRepository extends EntityRepository
 {
+    /**
+     * @inheritdoc
+     */
+    public function find($id, $lockMode = \Doctrine\DBAL\LockMode::NONE, $lockVersion = null)
+    {
+        \Cx\Core\Setting\Controller\Setting::init('TodoManager', 'config');
+        $hideDone = \Cx\Core\Setting\Controller\Setting::getValue('hide_done');
+        $entity = parent::find($id, $lockMode, $lockVersion);
+        if ($entity && $hideDone && $entity->getDone()) {
+            return null;
+        }
+        return $entity;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    {
+        \Cx\Core\Setting\Controller\Setting::init('TodoManager', 'config');
+        $hideDone = \Cx\Core\Setting\Controller\Setting::getValue('hide_done');
+        if ($hideDone) {
+            $criteria['done'] = false;
+        }
+        return parent::findBy($criteria, $orderBy, $limit, $offset);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findOneBy(array $criteria, array $orderBy = null)
+    {
+        \Cx\Core\Setting\Controller\Setting::init('TodoManager', 'config');
+        $hideDone = \Cx\Core\Setting\Controller\Setting::getValue('hide_done');
+        if ($hideDone) {
+            $criteria['done'] = false;
+        }
+        return parent::findBy($criteria, $orderBy);
+    }
 }

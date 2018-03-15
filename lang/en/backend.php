@@ -58,3 +58,4 @@ $_ARRAYLANG['name'] = 'Name';
 $_ARRAYLANG['description'] = 'Description';
 $_ARRAYLANG['reminderDate'] = 'Reminder date';
 $_ARRAYLANG['category'] = 'Category';
+$_ARRAYLANG['TXT_MODULE_TODOMANAGER_HIDE_DONE'] = 'Hide done todo\'s';
