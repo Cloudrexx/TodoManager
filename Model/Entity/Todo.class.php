@@ -49,6 +49,22 @@ class Todo extends \Cx\Model\Base\EntityBase implements \Gedmo\Translatable\Tran
     protected $locale;
 
     /**
+     * Sets $this->user to current user if its not set
+     */
+    public function __construct() {
+        if ($this->user) {
+            return;
+        }
+        $userId = \FWUser::getFWUserObject()->objUser->getId();
+        if (!$userId) {
+            return;
+        }
+        $em = $this->cx->getDb()->getEntityManager();
+        $userRepo = $em->getRepository('Cx\Core\User\Model\Entity\User');
+        $this->user = $userRepo->find($userId);
+    }
+
+    /**
      * Get id
      *
      * @return integer 
