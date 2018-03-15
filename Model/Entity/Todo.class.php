@@ -14,16 +14,6 @@ class Todo extends \Cx\Model\Base\EntityBase {
     protected $id;
 
     /**
-     * @var integer
-     */
-    protected $categoryId;
-
-    /**
-     * @var integer
-     */
-    protected $userId;
-
-    /**
      * @var boolean
      */
     protected $done;
@@ -48,6 +38,11 @@ class Todo extends \Cx\Model\Base\EntityBase {
      */
     protected $category;
 
+    /**
+     * @var \Cx\Core\User\Model\Entity\User
+     */
+    protected $user;
+
 
     /**
      * Get id
@@ -57,52 +52,6 @@ class Todo extends \Cx\Model\Base\EntityBase {
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set categoryId
-     *
-     * @param integer $categoryId
-     * @return Todo
-     */
-    public function setCategoryId($categoryId)
-    {
-        $this->categoryId = $categoryId;
-
-        return $this;
-    }
-
-    /**
-     * Get categoryId
-     *
-     * @return integer 
-     */
-    public function getCategoryId()
-    {
-        return $this->categoryId;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return Todo
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
     }
 
     /**
@@ -218,5 +167,28 @@ class Todo extends \Cx\Model\Base\EntityBase {
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Cx\Core\User\Model\Entity\User $user
+     * @return Todo
+     */
+    public function setUser(\Cx\Core\User\Model\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Cx\Core\User\Model\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

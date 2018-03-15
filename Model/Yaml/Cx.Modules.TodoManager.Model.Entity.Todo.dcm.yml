@@ -11,12 +11,6 @@ Cx\Modules\TodoManager\Model\Entity\Todo:
       generator:
         strategy: AUTO
   fields:
-    categoryId:
-      type: integer
-      column: category_id
-    userId:
-      type: integer
-      column: user_id
     done:
       type: boolean
     name:
@@ -33,4 +27,9 @@ Cx\Modules\TodoManager\Model\Entity\Todo:
       inversedBy: todos
       joinColumn:
         name: category_id
+        referencedColumnName: id
+    user:
+      targetEntity: Cx\Core\User\Model\Entity\User
+      joinColumn:
+        name: user_id
         referencedColumnName: id
