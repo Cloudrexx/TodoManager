@@ -57,7 +57,7 @@ class ComponentController extends \Cx\Core\Core\Model\Entity\SystemComponentCont
      * @return array List of Controller class names (without namespace)
      */
     public function getControllerClasses() {
-        return array('Frontend', 'Backend');
+        return array('Frontend', 'Backend', 'EsiWidget');
     }
 
     /**
@@ -71,7 +71,7 @@ class ComponentController extends \Cx\Core\Core\Model\Entity\SystemComponentCont
      * @return array List of ComponentController classes
      */
     public function getControllersAccessableByJson() {
-        return array();
+        return array('EsiWidgetController');
     }
 
     /**
@@ -122,7 +122,19 @@ class ComponentController extends \Cx\Core\Core\Model\Entity\SystemComponentCont
      * file config/postInitHooks.yml.
      * @param \Cx\Core\Core\Controller\Cx   $cx The instance of \Cx\Core\Core\Controller\Cx
      */
-    public function postInit(\Cx\Core\Core\Controller\Cx $cx) {}
+    public function postInit(\Cx\Core\Core\Controller\Cx $cx) {
+        $widgetController = $this->getComponent('Widget');
+        $widget = new \Cx\Core_Modules\Widget\Model\Entity\EsiWidget(
+            $this,
+            'TODO_LIST'
+        );
+        $widget->setEsiVariable(
+            \Cx\Core_Modules\Widget\Model\Entity\EsiWidget::ESI_VAR_ID_USER
+        );
+        $widgetController->registerWidget(
+            $widget
+        );
+    }
 
     /**
      * Do something before component load

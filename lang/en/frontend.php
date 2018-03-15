@@ -46,3 +46,5 @@ $_ARRAYLANG['TXT_MODULE_TODOMANAGER_DESCRIPTION'] = 'This is a new module with s
 $_ARRAYLANG['TXT_MODULE_TODOMANAGER_CONGRATULATIONS'] = 'Congratulations';
 $_ARRAYLANG['TXT_MODULE_TODOMANAGER_SUCCESSFUL_CREATION'] = 'You successfully created a new module!';
 $_ARRAYLANG['TXT_MODULE_TODOMANAGER_EXAMPLE_TEMPLATE'] = 'This is the default template for this component. It is used for all ACTs that do not have their own template.';
+$_ARRAYLANG['TXT_MODULE_TODOMANAGER_NO_TODOS'] = 'Congratulations, you have no open tasks!';
+
