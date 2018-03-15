@@ -39,16 +39,22 @@
 global $_ARRAYLANG;
 
 // Let's start with module info:
-$_ARRAYLANG['TXT_MODULE_TODOMANAGER'] = 'TodoManager';
+$_ARRAYLANG['TXT_MODULE_TODOMANAGER'] = 'Todo Manager';
 $_ARRAYLANG['TXT_MODULE_TODOMANAGER_DESCRIPTION'] = 'This is a new module with some sample content to show how to start.';
 
 // Here come the ACTs:
 $_ARRAYLANG['TXT_MODULE_TODOMANAGER_ACT_DEFAULT'] = 'Overview';
+$_ARRAYLANG['TXT_MODULE_TODOMANAGER_ACT_TODO'] = 'Todo\'s';
+$_ARRAYLANG['TXT_MODULE_TODOMANAGER_ACT_CATEGORY'] = 'Categories';
 $_ARRAYLANG['TXT_MODULE_TODOMANAGER_ACT_SETTINGS'] = 'Settings';
 $_ARRAYLANG['TXT_MODULE_TODOMANAGER_ACT_SETTINGS_DEFAULT'] = 'General';
 $_ARRAYLANG['TXT_MODULE_TODOMANAGER_ACT_SETTINGS_HELP'] = 'Mailing';
 
 // Now our content specific values:
-$_ARRAYLANG['TXT_MODULE_TODOMANAGER_CONGRATULATIONS'] = 'Overview';
-$_ARRAYLANG['TXT_MODULE_TODOMANAGER_SUCCESSFUL_CREATION'] = 'This is the Overview/Dashboard of your new Component. More tabs will be generated if you add entities to this component.';
-$_ARRAYLANG['TXT_MODULE_TODOMANAGER_EXAMPLE_TEMPLATE'] = 'This is the default template for this component, located in View/Template/Backend/Default.html. In order to add entities, place your YAML files in Model/Yaml folder and execute ./cx workbench database update. Then add a language file entry for your entity.';
+$_ARRAYLANG['id'] = 'ID';
+$_ARRAYLANG['user'] = 'User';
+$_ARRAYLANG['done'] = 'Done';
+$_ARRAYLANG['name'] = 'Name';
+$_ARRAYLANG['description'] = 'Description';
+$_ARRAYLANG['reminderDate'] = 'Reminder date';
+$_ARRAYLANG['category'] = 'Category';
