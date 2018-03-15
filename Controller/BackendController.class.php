@@ -51,33 +51,6 @@ namespace Cx\Modules\TodoManager\Controller;
 class BackendController extends \Cx\Core\Core\Model\Entity\SystemComponentBackendController {
 
     /**
-     * Default permission
-     *
-     * @var Cx\Core_Modules\Access\Model\Entity\Permission
-     */
-    protected $defaultPermission;
-
-    /**
-     * Returns the object to parse a view with
-     *
-     * If you overwrite this and return anything else than string, filter will not work
-     * @return string|array|object An entity class name, entity, array of entities or DataSet
-     */
-    protected function getViewGeneratorParseObjectForEntityClass($entityClassName) {
-        return $entityClassName;
-    }
-
-    /**
-     * Returns all entities of this component which can have an auto-generated view
-     *
-     * @access protected
-     * @return array
-     */
-    protected function getEntityClassesWithView() {
-        return $this->getEntityClasses();
-    }
-
-    /**
      * This function returns the ViewGeneration options for a given entityClass
      *
      * @access protected
