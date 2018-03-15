@@ -124,4 +124,12 @@ class Category extends \Cx\Model\Base\EntityBase {
     {
         return $this->todos;
     }
+
+    /**
+     * Makes this entity identify itself by its name
+     * @return string
+     */
+    public function __toString() {
+        return $this->getName();
+    }
 }
